@@ -1,0 +1,20 @@
+.header {
+    background: rgba(245, 245, 245);
+}
+
+.ad-list-image {
+    width: 100%;
+    height: 207px;
+    background-size: cover !important;
+}
+
+.w-33 {
+    width: 33.33%;
+    min-width: 33.33%;
+}
+
+@media screen and (min-width: 1200px) {
+    .toggle-sidebar-btn {
+        display: none;
+    }
+}
