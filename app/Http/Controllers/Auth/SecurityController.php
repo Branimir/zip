@@ -17,7 +17,7 @@ class SecurityController extends Controller
         } catch (\Exception $e) {
             throw new \Error($e->getMessage());
         }
-        return redirect()->route('auth.login.form')->with('success', 'Successfully registered');
+        return redirect()->route('login')->with('success', 'Successfully registered');
     }
 
     public function login() {
@@ -25,6 +25,6 @@ class SecurityController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect()->route('app.home');
         }
-        return redirect()->route('auth.login.form')->with('error', 'Invalid data');
+        return redirect()->route('login')->with('error', 'Invalid data');
     }
 }

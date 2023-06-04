@@ -17,7 +17,7 @@ class AdsController extends Controller
                 ->where('title', 'LIKE', '%' . request()->search . '%')
                 ->orWhere('description', 'LIKE', '%' . request()->search . '%');
         })
-            ->with(['user', 'category', 'media', 'attributes'])->paginate();
+            ->with(['user', 'category', 'media', 'attributes'])->paginate(\request()->perPage ?? (int)env('APP_DEFAULT_PAGE_SIZE'));
 
         return view('app.home.index', ['ads' => $ads]);
     }
