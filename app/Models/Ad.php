@@ -38,6 +38,7 @@ class Ad extends Model
         'number_of_likes',
         'number_of_dislikes',
         'category_id',
-        'user_id'
+        'user_id',
+        'state'
     ];
 }

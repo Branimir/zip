@@ -7,6 +7,7 @@ use App\Models\Ad;
 use App\Models\AdCategory;
 use App\Models\AdMedia;
 use Illuminate\Support\Facades\Auth;
+use Nette\Utils\Image;
 
 class AdsController extends Controller
 {
@@ -17,13 +18,16 @@ class AdsController extends Controller
                 ->where('title', 'LIKE', '%' . request()->search . '%')
                 ->orWhere('description', 'LIKE', '%' . request()->search . '%');
         })
-            ->with(['user', 'category', 'media', 'attributes'])->paginate(\request()->perPage ?? (int)env('APP_DEFAULT_PAGE_SIZE'));
+            ->with(['user', 'category', 'media', 'attributes'])
+            ->paginate(\request()->perPage ?? (int)env('APP_DEFAULT_PAGE_SIZE'));
 
         return view('app.home.index', ['ads' => $ads]);
     }
 
     public function show($id) {
-        $ad = Ad::where('id', '=', $id);
+        $ad = Ad::where('id', '=', $id)
+            ->with(['user', 'category', 'media', 'attributes'])
+            ->firstOrFail();
         return view('app.ads.single', ['ad' => $ad, 'mainTitle' => 'Detalji']);
     }
     public function create()
@@ -49,14 +53,16 @@ class AdsController extends Controller
                 "date" => (new \DateTime())->format("Y-m-d H:i:s"),
                 "price" => $req->price
             ]),
-            "status" => "published",
+            "status" => "new",
             "promotion_level" => "none",
-            "type" => "sale"
+            "type" => "sale",
         ]);
 
         foreach($req->file('images') as $file) {
             $fileName = $ad->id . '-' . $file->getClientOriginalName();
-            $file->move(public_path('uploads'), $fileName);
+            $image = Image::fromFile($file);
+            $image->resize(800, 600);
+            $image->save(public_path('uploads') . '/' . $fileName);
             AdMedia::create([
                 "ad_id" => $ad->id,
                 "media_url" => $fileName

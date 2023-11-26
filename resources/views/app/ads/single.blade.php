@@ -3,19 +3,45 @@
 @section('content')
     <div class="col-lg-12">
         <div class="card">
-            <img src="assets/img/product-{{ random_int(1, 5) }}.jpg" class="card-img-top" alt="...">
+            @if(count($ad->media) === 1)
+                <img
+                    src="{{ asset('uploads/' . $ad->media[0]->media_url) }}"
+                    class="card-img-top"
+                    alt="{{ $ad->title }}"
+                />
+            @elseif(count($ad->media) > 1)
+
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @for($i = 0; $i < count($ad->media); $i++)
+                            <div class="carousel-item @if($i === 0) active @endif">
+                                <img src="{{ asset('uploads/' . $ad->media[$i]->media_url) }}" class="d-block w-100" alt="{{ $ad->title }}">
+                            </div>
+                        @endfor
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            @endif
+
             <div class="card-body">
                 <h5 class="card-title">
-                    Card with an image on top
+                    {{ $ad->title }}
                 </h5>
                 <p class="card-text">
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
+                    {{ $ad->description }}
                 </p>
                 <div class="d-flex card-footer justify-content-between">
-                    <p>Novo</p>
+                    <p>{{ ['new' => 'Novo', 'used' => 'Korisceno'][$ad->status] }}</p>
                     <p class="fw-bolder text-danger">
-                        {{ random_int(100, 10000) }}.00 KM
+                        {{ number_format($ad->price, 2) }} KM
                     </p>
                 </div>
             </div>
@@ -29,7 +55,7 @@
             <div class="card">
                 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                    <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
                     <h2>Kevin Anderson</h2>
                     <h3>Web Designer</h3>
                     <div class="social-links mt-2">

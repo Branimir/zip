@@ -37,11 +37,16 @@
                         </option>
                     @endforeach
                 </select>
-
                 <div id="attributes">
 
                 </div>
-
+                <label for="state">Stanje</label>
+                <div>
+                    <select class="form-control" name="state" id="state">
+                        <option value="new">Novo</option>
+                        <option value="used">Polovno</option>
+                    </select>
+                </div>
                 <label for="images">Slike</label>
                 <input class="form-control" type="file" id="images" name="images[]" accept="image/png, image/jpeg" multiple>
 

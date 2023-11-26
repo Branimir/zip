@@ -4,13 +4,54 @@
 
 .ad-list-image {
     width: 100%;
-    height: 300px;
+    height: 160px;
     background-size: cover !important;
+    padding: 5px;
 }
 
 .w-33 {
     width: 33.33%;
     min-width: 33.33%;
+}
+
+.status-badge {
+    color: white;
+    padding: 5px 15px;
+    border-radius: 25px;
+    font-size: 6pt;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+}
+
+.status-badge-bg-success {
+    background: rgba(0, 150, 0, 0.6);
+    border: 2px solid rgba(0, 200, 0, 0.6);
+}
+
+.clear-search {
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    font-size: 12pt;
+    cursor: pointer;
+}
+
+input[name="search"] {
+   text-indent: 10px
+}
+
+.card-title {
+    font-size: 15px;
+    color: black;
+    padding-top: 9px;
+    padding-bottom: 6px;
+}
+
+.card-text {
+    padding-top: 0px;
+    font-size: 14px;
+    color: black;
 }
 
 @media screen and (min-width: 1200px) {

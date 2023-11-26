@@ -51,7 +51,7 @@
 
     <section class="section dashboard">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="@if(request()->route()->getName() == 'app.home') col-lg-12 @else col-lg-8 @endif">
                 <div class="pagetitle">
                     <h1>{{ $mainTitle ?? 'Lista' }}</h1>
                 </div>
@@ -60,13 +60,13 @@
             </div>
 
             <!-- Right side columns -->
-{{--            <div class="col-lg-4">--}}
-{{--                <div class="pagetitle">--}}
-{{--                    <h1>{!! $sidebarTitle ?? '&nbsp;' !!}</h1>--}}
-{{--                </div>--}}
+            <div class="col-lg-4">
+                <div class="pagetitle">
+                    <h1>{!! $sidebarTitle ?? '&nbsp;' !!}</h1>
+                </div>
 
-{{--                @yield('sidebar')--}}
-{{--            </div>--}}
+                @yield('sidebar')
+            </div>
 
         </div>
     </section>

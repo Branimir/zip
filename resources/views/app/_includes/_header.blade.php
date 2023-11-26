@@ -7,12 +7,17 @@
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
     <div class="search-bar w-100">
-        <form class="search-form d-flex align-items-center w-100 d-inline" method="GET" action="{{ route('app.home') }}">
+        <form class="search-form d-flex align-items-center w-100 d-inline position-relative" method="GET" action="{{ route('app.home') }}">
+            @if(request()->search)
+                <a href="{{ route('app.home') }}" class="clear-search">
+                    <i class="bi bi-x search-close-btn"></i>
+                </a>
+            @endif
             <input
                 type="text"
                 name="search"
                 placeholder="{{ __('Ukucajte tekst i pritisnite enter') }}"
-                title="Enter search keyword"
+                title="{{ __('Ukucajte tekst i pritisnite enter') }}"
                 value="{{ request()->search }}"
             >
             <button type="submit" title="Search"><i class="bi bi-search me-5"></i></button>
