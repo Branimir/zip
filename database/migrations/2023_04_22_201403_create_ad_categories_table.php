@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('number_of_ads')->default(0);
-            $table->json('category_attributes');
+            $table->string('category_attributes');
             $table->timestamps();
         });
     }

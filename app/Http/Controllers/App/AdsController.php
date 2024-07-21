@@ -58,15 +58,17 @@ class AdsController extends Controller
             "type" => "sale",
         ]);
 
-        foreach($req->file('images') as $file) {
-            $fileName = $ad->id . '-' . $file->getClientOriginalName();
-            $image = Image::fromFile($file);
-            $image->resize(800, 600);
-            $image->save(public_path('uploads') . '/' . $fileName);
-            AdMedia::create([
-                "ad_id" => $ad->id,
-                "media_url" => $fileName
-            ]);
+        if($req->file('images') && is_array($req->file('images'))) {
+            foreach($req->file('images') as $file) {
+                $fileName = $ad->id . '-' . $file->getClientOriginalName();
+                $image = Image::fromFile($file);
+                $image->resize(800, 600);
+                $image->save(public_path('uploads') . '/' . $fileName);
+                AdMedia::create([
+                    "ad_id" => $ad->id,
+                    "media_url" => $fileName
+                ]);
+            }
         }
 
         return redirect()->route("app.home");
